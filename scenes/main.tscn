@@ -91,6 +91,25 @@ offset_right = 162.0
 offset_bottom = 18.0
 text = "0/0"
 
+[node name="Mining" type="Sprite2D" parent="SidebarGUI/JobsContainer/VBoxContainer"]
+position = Vector2(15, 113)
+texture = ExtResource("4_ndngx")
+
+[node name="MiningButton" type="Button" parent="SidebarGUI/JobsContainer/VBoxContainer/Mining"]
+offset_left = 25.0
+offset_top = -14.0
+offset_right = 86.0
+offset_bottom = 17.0
+text = "Mining"
+alignment = 0
+
+[node name="MiningLevel" type="Label" parent="SidebarGUI/JobsContainer/VBoxContainer/Mining"]
+offset_left = 90.0
+offset_top = -11.0
+offset_right = 130.0
+offset_bottom = 15.0
+text = "0/50"
+
 [node name="SaveGame" type="Sprite2D" parent="SidebarGUI/JobsContainer/VBoxContainer"]
 position = Vector2(20, 582)
 
@@ -110,25 +129,6 @@ offset_top = -38.0
 offset_right = 58.0
 offset_bottom = -7.0
 text = "Load"
-
-[node name="Mining" type="Sprite2D" parent="SidebarGUI/JobsContainer/VBoxContainer"]
-position = Vector2(15, 113)
-texture = ExtResource("4_ndngx")
-
-[node name="MiningButton" type="Button" parent="SidebarGUI/JobsContainer/VBoxContainer/Mining"]
-offset_left = 25.0
-offset_top = -14.0
-offset_right = 86.0
-offset_bottom = 17.0
-text = "Mining"
-alignment = 0
-
-[node name="MiningLevel" type="Label" parent="SidebarGUI/JobsContainer/VBoxContainer/Mining"]
-offset_left = 90.0
-offset_top = -8.0
-offset_right = 130.0
-offset_bottom = 18.0
-text = "0/50"
 
 [node name="GameLabelBG" type="ColorRect" parent="SidebarGUI"]
 layout_mode = 0
@@ -303,10 +303,10 @@ layout_mode = 2
 [connection signal="upgrade" from="." to="TabChanger/MiningTab" method="_on_cargo_tab_cargo_upgrade"]
 [connection signal="pressed" from="SidebarGUI/JobsContainer/VBoxContainer/Cargo/CargoButton" to="." method="_on_cargo_button_pressed"]
 [connection signal="pressed" from="SidebarGUI/JobsContainer/VBoxContainer/Inventory/InventoryButton" to="." method="_on_inventory_button_pressed"]
-[connection signal="pressed" from="SidebarGUI/JobsContainer/VBoxContainer/SaveGame/SaveButton" to="." method="_on_save_button_pressed"]
-[connection signal="pressed" from="SidebarGUI/JobsContainer/VBoxContainer/LoadGame/LoadButton" to="." method="_on_save_button_pressed"]
-[connection signal="pressed" from="SidebarGUI/JobsContainer/VBoxContainer/LoadGame/LoadButton" to="." method="_on_load_button_pressed"]
 [connection signal="pressed" from="SidebarGUI/JobsContainer/VBoxContainer/Mining/MiningButton" to="." method="_on_mining_button_pressed"]
+[connection signal="pressed" from="SidebarGUI/JobsContainer/VBoxContainer/SaveGame/SaveButton" to="." method="_on_save_button_pressed"]
+[connection signal="pressed" from="SidebarGUI/JobsContainer/VBoxContainer/LoadGame/LoadButton" to="." method="_on_load_button_pressed"]
+[connection signal="pressed" from="SidebarGUI/JobsContainer/VBoxContainer/LoadGame/LoadButton" to="." method="_on_save_button_pressed"]
 [connection signal="inventory_update" from="Inventory" to="." method="_on_inventory_inventory_update"]
 [connection signal="inventory_update" from="Inventory" to="TabChanger/CargoTab" method="_on_inventory_inventory_update"]
 [connection signal="cargo_upgrade" from="TabChanger/CargoTab" to="." method="_on_cargo_tab_cargo_upgrade"]
@@ -314,5 +314,4 @@ layout_mode = 2
 [connection signal="inventory_update" from="TabChanger/CargoTab" to="Inventory" method="_on_cargo_tab_inventory_update"]
 [connection signal="pressed" from="TabChanger/CargoTab/ScrollContainer/Control/InventoryExpand/InventoryUpPurchase" to="TabChanger/CargoTab" method="_on_inventory_up_purchase_pressed"]
 [connection signal="pressed" from="TabChanger/CargoTab/ScrollContainer/Control/MiningUpgrade/MiningUpPurchase" to="TabChanger/CargoTab" method="_on_mining_up_purchase_pressed"]
-[connection signal="miningLevelUp" from="TabChanger/MiningTab" to="." method="_on_mining_tab_mining_level_up"]
 [connection signal="timeout" from="TabChanger/MiningTab/MiningTimer" to="TabChanger/MiningTab" method="_on_mining_timer_timeout"]
