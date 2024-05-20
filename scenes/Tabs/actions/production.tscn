@@ -1,0 +1,92 @@
+[gd_scene load_steps=4 format=3 uid="uid://ctr61v1ttrn86"]
+
+[ext_resource type="Script" path="res://scenes/Tabs/actions/production.gd" id="1_m8888"]
+[ext_resource type="Texture2D" uid="uid://crhu23es610aj" path="res://resources/Sprites/Jobs/Mining/OreGlass.png" id="2_a8mtn"]
+[ext_resource type="Texture2D" uid="uid://yp0yog0rwam4" path="res://resources/Sprites/Items/Ores/Glass.png" id="3_g5gmv"]
+
+[node name="Production" type="ColorRect"]
+offset_left = 10.0
+offset_top = 20.0
+offset_right = 210.0
+offset_bottom = 180.0
+color = Color(0.188235, 0.188235, 0.188235, 1)
+script = ExtResource("1_m8888")
+
+[node name="ProductionButton" type="Button" parent="."]
+layout_mode = 0
+offset_right = 200.0
+offset_bottom = 160.0
+
+[node name="ProductionIcon" type="Sprite2D" parent="."]
+position = Vector2(100, 30)
+texture = ExtResource("2_a8mtn")
+
+[node name="ProductionLabel" type="Label" parent="."]
+layout_mode = 0
+offset_top = 50.0
+offset_right = 200.0
+offset_bottom = 76.0
+text = "Glass"
+horizontal_alignment = 1
+clip_text = true
+uppercase = true
+
+[node name="TimerLabel" type="Label" parent="."]
+layout_mode = 0
+offset_top = 90.0
+offset_right = 200.0
+offset_bottom = 116.0
+text = "0 Seconds"
+horizontal_alignment = 1
+clip_text = true
+uppercase = true
+
+[node name="XPLabel" type="Label" parent="."]
+layout_mode = 0
+offset_top = 70.0
+offset_right = 200.0
+offset_bottom = 96.0
+text = "0 XP"
+horizontal_alignment = 1
+clip_text = true
+
+[node name="ProductionProgressbar" type="ProgressBar" parent="."]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 140.0
+offset_right = 195.0
+offset_bottom = 155.0
+fill_mode = 1
+show_percentage = false
+
+[node name="Output" type="Sprite2D" parent="."]
+position = Vector2(170, 125)
+texture = ExtResource("3_g5gmv")
+
+[node name="OutputAmount" type="Label" parent="."]
+layout_mode = 0
+offset_left = 110.0
+offset_top = 115.0
+offset_right = 150.0
+offset_bottom = 141.0
+text = "x0"
+horizontal_alignment = 2
+
+[node name="LevelGate" type="ColorRect" parent="."]
+visible = false
+layout_mode = 0
+offset_right = 200.0
+offset_bottom = 160.0
+color = Color(1, 0, 0, 0.72549)
+
+[node name="LevelReq" type="Label" parent="."]
+visible = false
+layout_mode = 0
+offset_top = 113.0
+offset_right = 200.0
+offset_bottom = 139.0
+text = "X LEVEL"
+horizontal_alignment = 1
+clip_text = true
+
+[connection signal="pressed" from="ProductionButton" to="." method="_on_Production_Button_pressed"]

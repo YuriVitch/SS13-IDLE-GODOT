@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://p80hr13ga2ia"]
+[gd_scene load_steps=16 format=3 uid="uid://p80hr13ga2ia"]
 
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_lsvji"]
 [ext_resource type="Script" path="res://resources/scripts/Inventory.gd" id="1_ugmkf"]
@@ -8,11 +8,13 @@
 [ext_resource type="Texture2D" uid="uid://02fv0028ickl" path="res://resources/Sprites/Sidebar/Cargo.png" id="3_odwv4"]
 [ext_resource type="Texture2D" uid="uid://dyq0fqkhi874y" path="res://resources/Sprites/Sidebar/Inventory.png" id="4_dtkim"]
 [ext_resource type="Texture2D" uid="uid://6e3is4ii4fyc" path="res://resources/Sprites/Jobs/Mining/Mining.png" id="4_ndngx"]
+[ext_resource type="Texture2D" uid="uid://brmbgfjvpxpb6" path="res://resources/Sprites/Jobs/Engineering/Engineering.png" id="6_shpxg"]
 [ext_resource type="Script" path="res://scenes/TabChanger.gd" id="7_rphch"]
 [ext_resource type="Texture2D" uid="uid://orwhv61u1h7o" path="res://resources/Sprites/cargo/upgrades/Expand Inventory.png" id="8_u2307"]
 [ext_resource type="Texture2D" uid="uid://dmndbq04ybesx" path="res://resources/Sprites/cargo/upgrades/Mining Upgrade.png" id="9_w8ldm"]
 [ext_resource type="Script" path="res://resources/scripts/MiningTab.gd" id="10_2lhdf"]
 [ext_resource type="Script" path="res://resources/scripts/CargoTab.gd" id="10_lcjqf"]
+[ext_resource type="Script" path="res://scenes/EngineeringTab.gd" id="15_vihds"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_lsvji")
@@ -52,7 +54,7 @@ vertical_scroll_mode = 3
 layout_mode = 2
 
 [node name="Cargo" type="Sprite2D" parent="SidebarGUI/JobsContainer/VBoxContainer"]
-position = Vector2(15, 24)
+position = Vector2(15, 25)
 texture = ExtResource("3_odwv4")
 
 [node name="CargoButton" type="Button" parent="SidebarGUI/JobsContainer/VBoxContainer/Cargo"]
@@ -78,36 +80,55 @@ position = Vector2(15, 55)
 texture = ExtResource("4_dtkim")
 
 [node name="InventoryButton" type="Button" parent="SidebarGUI/JobsContainer/VBoxContainer/Inventory"]
-offset_left = 25.0
+offset_left = 24.0
 offset_top = -14.0
-offset_right = 108.0
+offset_right = 109.0
 offset_bottom = 17.0
 text = "Inventory"
 
 [node name="SlotsFilled" type="Label" parent="SidebarGUI/JobsContainer/VBoxContainer/Inventory"]
 offset_left = 110.0
-offset_top = -8.0
+offset_top = -10.0
 offset_right = 162.0
-offset_bottom = 18.0
+offset_bottom = 16.0
 text = "0/0"
 
 [node name="Mining" type="Sprite2D" parent="SidebarGUI/JobsContainer/VBoxContainer"]
-position = Vector2(15, 113)
+position = Vector2(15, 115)
 texture = ExtResource("4_ndngx")
 
 [node name="MiningButton" type="Button" parent="SidebarGUI/JobsContainer/VBoxContainer/Mining"]
 offset_left = 25.0
-offset_top = -14.0
+offset_top = -18.0
 offset_right = 86.0
-offset_bottom = 17.0
+offset_bottom = 13.0
 text = "Mining"
 alignment = 0
 
 [node name="MiningLevel" type="Label" parent="SidebarGUI/JobsContainer/VBoxContainer/Mining"]
 offset_left = 90.0
-offset_top = -11.0
+offset_top = -14.0
 offset_right = 130.0
-offset_bottom = 15.0
+offset_bottom = 12.0
+text = "0/50"
+
+[node name="Engineering" type="Sprite2D" parent="SidebarGUI/JobsContainer/VBoxContainer"]
+position = Vector2(15, 150)
+texture = ExtResource("6_shpxg")
+
+[node name="EngineeringButton" type="Button" parent="SidebarGUI/JobsContainer/VBoxContainer/Engineering"]
+offset_left = 24.0
+offset_top = -15.0
+offset_right = 124.0
+offset_bottom = 16.0
+text = "Engineering"
+flat = true
+
+[node name="EngineeringLevel" type="Label" parent="SidebarGUI/JobsContainer/VBoxContainer/Engineering"]
+offset_left = 123.0
+offset_top = -9.0
+offset_right = 163.0
+offset_bottom = 17.0
 text = "0/50"
 
 [node name="SaveGame" type="Sprite2D" parent="SidebarGUI/JobsContainer/VBoxContainer"]
@@ -159,6 +180,21 @@ script = ExtResource("2_nc5ye")
 
 [node name="TabChanger" type="Node2D" parent="."]
 script = ExtResource("7_rphch")
+
+[node name="ActionLevel" type="ProgressBar" parent="TabChanger"]
+offset_left = -389.0
+offset_top = -319.0
+offset_right = 572.0
+offset_bottom = -292.0
+show_percentage = false
+
+[node name="ActionXP" type="Label" parent="TabChanger/ActionLevel"]
+layout_mode = 0
+offset_left = 369.0
+offset_top = 1.0
+offset_right = 409.0
+offset_bottom = 24.0
+text = "0/0"
 
 [node name="CargoTab" type="Control" parent="TabChanger"]
 visible = false
@@ -264,22 +300,6 @@ offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("10_2lhdf")
 
-[node name="MiningLevel" type="ProgressBar" parent="TabChanger/MiningTab"]
-layout_mode = 0
-offset_left = -389.0
-offset_top = -319.0
-offset_right = 572.0
-offset_bottom = -292.0
-show_percentage = false
-
-[node name="MiningXP" type="Label" parent="TabChanger/MiningTab/MiningLevel"]
-layout_mode = 0
-offset_left = 369.0
-offset_top = 1.0
-offset_right = 409.0
-offset_bottom = 24.0
-text = "0/0"
-
 [node name="MiningTimer" type="Timer" parent="TabChanger/MiningTab"]
 
 [node name="ScrollContainer" type="ScrollContainer" parent="TabChanger/MiningTab"]
@@ -295,6 +315,26 @@ vertical_scroll_mode = 3
 [node name="Control" type="Control" parent="TabChanger/MiningTab/ScrollContainer"]
 layout_mode = 2
 
+[node name="EngineeringTab" type="Control" parent="TabChanger"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("15_vihds")
+
+[node name="EngineeringTimer" type="Timer" parent="TabChanger/EngineeringTab"]
+
+[node name="ScrollContainer" type="ScrollContainer" parent="TabChanger/EngineeringTab"]
+custom_minimum_size = Vector2(925, 1000)
+layout_mode = 0
+offset_left = -392.0
+offset_top = -322.0
+offset_right = 533.0
+offset_bottom = 678.0
+
+[node name="Control" type="Control" parent="TabChanger/EngineeringTab/ScrollContainer"]
+layout_mode = 2
+
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [connection signal="inventory_update" from="." to="Inventory" method="_on_main_inventory_update"]
@@ -304,6 +344,7 @@ layout_mode = 2
 [connection signal="pressed" from="SidebarGUI/JobsContainer/VBoxContainer/Cargo/CargoButton" to="." method="_on_cargo_button_pressed"]
 [connection signal="pressed" from="SidebarGUI/JobsContainer/VBoxContainer/Inventory/InventoryButton" to="." method="_on_inventory_button_pressed"]
 [connection signal="pressed" from="SidebarGUI/JobsContainer/VBoxContainer/Mining/MiningButton" to="." method="_on_mining_button_pressed"]
+[connection signal="pressed" from="SidebarGUI/JobsContainer/VBoxContainer/Engineering/EngineeringButton" to="." method="_on_engineering_button_pressed"]
 [connection signal="pressed" from="SidebarGUI/JobsContainer/VBoxContainer/SaveGame/SaveButton" to="." method="_on_save_button_pressed"]
 [connection signal="pressed" from="SidebarGUI/JobsContainer/VBoxContainer/LoadGame/LoadButton" to="." method="_on_load_button_pressed"]
 [connection signal="pressed" from="SidebarGUI/JobsContainer/VBoxContainer/LoadGame/LoadButton" to="." method="_on_save_button_pressed"]

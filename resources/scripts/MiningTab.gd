@@ -1,13 +1,15 @@
 extends Control
 
-var oreTemplate := preload('res://scenes/Tabs/mining/ore.tscn')
+var oreTemplate := preload('res://scenes/Tabs/actions/production.tscn')
 var sprites := preload('res://resources/scripts/Sprites.gd').new()
 var leveling := preload('res://resources/scripts/Leveler.gd').new()
 var materials = sprites.oreSprites
+var sheets = sprites.materialSprites
 
 @onready var timer = $MiningTimer
-@onready var levelBar = $MiningLevel
-@onready var levelXP = $MiningLevel/MiningXP
+@onready var levelBar = self.get_parent().get_node('ActionLevel')
+@onready var levelXP = self.get_parent().get_node('ActionLevel/ActionXP')
+@onready var miningLevelLabel = get_tree().get_root().get_node('Main/SidebarGUI/JobsContainer/VBoxContainer/Mining/MiningLevel')
 var timeRequired = {
 	'oreGlass': 1.5,
 	'oreIron': 2,
@@ -53,7 +55,7 @@ var ores = ['oreGlass','oreIron','oreSilver','oreGold','oreTitanium','oreUranium
 var children = []
 var activeChild = null
 var currentXP = 0
-var currentLevel = 50
+var currentLevel = 0
 
 signal miningFinish(item, amount)
 signal miningLevelUp(newLevel)
@@ -64,21 +66,25 @@ func _ready():
 	for ore in ores:
 		var newOreSlot = oreTemplate.instantiate()
 		newOreSlot.name = ore
-		newOreSlot.find_child('OreIcon').texture = materials[ore]
-		newOreSlot.find_child('OreLabel').text = ore.replace('ore', '')
+		newOreSlot.find_child('ProductionIcon').texture = materials[ore]
+		newOreSlot.find_child('ProductionLabel').text = ore.replace('ore', '')
 		newOreSlot.find_child('TimerLabel').text = str(timeRequired[ore]) + ' Seconds'
-		newOreSlot.find_child('OreProgressbar').max_value = timeRequired[ore]
+		newOreSlot.find_child('ProductionProgressbar').max_value = timeRequired[ore]
 		newOreSlot.find_child('XPLabel').text = str(xpGained[ore]) + ' XP'
+		newOreSlot.find_child('OutputAmount').text = 'x1'
+		newOreSlot.find_child('Output').texture = sheets[ore]
+		newOreSlot.find_child('Output').position = Vector2(100,125)
+		newOreSlot.find_child('OutputAmount').position = Vector2(50, 115)
 		if(levelRequired[ore] > currentLevel):
 			newOreSlot.find_child('LevelGate').visible = true
 			newOreSlot.find_child('LevelReq').visible = true
 			newOreSlot.find_child('LevelReq').text = 'level '+ str(levelRequired[ore])
-		newOreSlot.position = Vector2(10+(120*i), y)
+		newOreSlot.position = Vector2(10+(220*i), y)
 		$ScrollContainer/Control.add_child(newOreSlot)
-		newOreSlot.connect('ore_button_pressed', button_pressed)
+		newOreSlot.connect('production_button_pressed', button_pressed)
 		children.push_front(newOreSlot)
 		i = i + 1
-		if(i > 6):
+		if(i > 3):
 			i = 0
 			y = y + 200
 	update_time_label()
@@ -86,7 +92,7 @@ func _ready():
 
 func _process(_delta):
 	if(activeChild):
-		activeChild.find_child('OreProgressbar').value = timer.time_left
+		activeChild.find_child('ProductionProgressbar').value = timer.time_left
 
 #func ore_button_pressed(ore):
 
@@ -99,13 +105,13 @@ func _on_mining_timer_timeout():
 
 func clear_timers():
 	for child in children:
-		child.find_child('OreProgressbar').value = 0
+		child.find_child('ProductionProgressbar').value = 0
 	timer.stop()
 
 func update_time_label():
 	for child in children:
 		child.find_child('TimerLabel').text = str(round(10 * (timeRequired[child.name] * (1-(0.15 * miningUpgrades))))/10) + ' Seconds'
-		child.find_child('OreProgressbar').max_value = round(10 * (timeRequired[child.name] * (1-(0.15 * miningUpgrades))))/10
+		child.find_child('ProductionProgressbar').max_value = round(10 * (timeRequired[child.name] * (1-(0.15 * miningUpgrades))))/10
 
 func button_pressed(ore):
 	clear_timers()
@@ -137,6 +143,8 @@ func _update_XP_bar():
 				if(currentLevel >= levelRequired[child.name]):
 					child.find_child('LevelGate').visible = false
 					child.find_child('LevelReq').visible = false
-	levelBar.max_value = next_level
-	levelBar.value = currentXP
-	levelXP.text = str(currentXP)+'/'+str(next_level)
+	if self.visible:
+		levelBar.max_value = next_level
+		levelBar.value = currentXP
+		levelXP.text = str(currentXP)+'/'+str(next_level)
+	miningLevelLabel.text = str(currentLevel)+"/50"

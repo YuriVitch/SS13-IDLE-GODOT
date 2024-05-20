@@ -26,6 +26,14 @@ var oreSprites = {
 	"oreBananium": preload("res://resources/Sprites/Jobs/Mining/OreBanana.png")
 }
 
+var engineeringSprites = {
+	"power" = preload('res://resources/Sprites/Jobs/Engineering/power.png'),
+	"bicycle" = preload('res://resources/Sprites/Jobs/Engineering/bicycle.png'),
+	"treadmill" = preload('res://resources/Sprites/Jobs/Engineering/treadmill.png'),
+	"generator1" = preload('res://resources/Sprites/Jobs/Engineering/generator_anim.png'),
+	"generator2" = preload('res://resources/Sprites/Jobs/Engineering/generator_anim2.png')
+}
+
 var blank = {
 	
 }

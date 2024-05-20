@@ -1,6 +1,6 @@
 func xp_from_level(l):
 	#print(32 ** (1.2 ** l))
-	return 16 ** (1.1 ** l)
+	return 16 ** (1.0247 ** l)
 	
 func Level_from_xp(xp):
 	var level = 1

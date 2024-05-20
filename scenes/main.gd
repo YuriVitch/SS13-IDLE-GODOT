@@ -86,3 +86,7 @@ func _on_cargo_tab_cargo_upgrade(type, number):
 
 func _on_mining_tab_mining_level_up(newLevel):
 	$SidebarGUI/JobsContainer/VBoxContainer/Mining/MiningLevel.text = str(newLevel)+"/50"
+
+
+func _on_engineering_button_pressed():
+	tab_change.emit('engineering')
