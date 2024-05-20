@@ -1,0 +1,56 @@
+[gd_scene load_steps=3 format=3 uid="uid://dydcg7qwtc3d3"]
+
+[ext_resource type="Script" path="res://scenes/Tabs/inventorypiece.gd" id="1_kj1nc"]
+[ext_resource type="Texture2D" uid="uid://hw3336f5v60x" path="res://resources/Sprites/Misc/coin.png" id="2_vh3xa"]
+
+[node name="InventoryPiece" type="ColorRect"]
+offset_right = 100.0
+offset_bottom = 172.0
+color = Color(0.231373, 0.231373, 0.231373, 1)
+script = ExtResource("1_kj1nc")
+
+[node name="ItemSprite" type="Sprite2D" parent="."]
+position = Vector2(50, 25)
+
+[node name="SellAll" type="Button" parent="."]
+layout_mode = 0
+offset_top = 113.0
+offset_right = 100.0
+offset_bottom = 144.0
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+text = "Sell All"
+flat = true
+
+[node name="ItemAmount" type="Label" parent="."]
+layout_mode = 0
+offset_top = 145.0
+offset_right = 100.0
+offset_bottom = 171.0
+text = "0
+"
+horizontal_alignment = 1
+
+[node name="Price" type="Label" parent="."]
+layout_mode = 0
+offset_left = 11.0
+offset_top = 47.0
+offset_right = 57.0
+offset_bottom = 73.0
+text = "0"
+horizontal_alignment = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Price"]
+position = Vector2(62, 12)
+texture = ExtResource("2_vh3xa")
+
+[node name="SellOne" type="Button" parent="."]
+layout_mode = 0
+offset_top = 77.0
+offset_right = 100.0
+offset_bottom = 110.0
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+text = "Sell One"
+flat = true
+
+[connection signal="pressed" from="SellAll" to="." method="_on_sell_all_pressed"]
+[connection signal="pressed" from="SellOne" to="." method="_on_sell_one_pressed"]

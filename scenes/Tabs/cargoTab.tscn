@@ -1,0 +1,57 @@
+[gd_scene load_steps=2 format=3 uid="uid://cn1ns0ygbx5et"]
+
+[ext_resource type="Texture2D" uid="uid://orwhv61u1h7o" path="res://resources/Sprites/cargo/upgrades/Expand Inventory.png" id="1_qvtvi"]
+
+[node name="CargoTab" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+custom_minimum_size = Vector2(925, 1000)
+layout_mode = 0
+offset_right = 100.0
+offset_bottom = 49.0
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 3
+
+[node name="Control" type="Control" parent="ScrollContainer"]
+layout_mode = 2
+
+[node name="InventoryExpand" type="ColorRect" parent="ScrollContainer/Control"]
+custom_minimum_size = Vector2(310, 70)
+layout_mode = 2
+offset_right = 50.0
+offset_bottom = 70.0
+color = Color(0.231373, 0.231373, 0.231373, 1)
+
+[node name="Button" type="Button" parent="ScrollContainer/Control/InventoryExpand"]
+custom_minimum_size = Vector2(310, 70)
+layout_mode = 0
+offset_right = 310.0
+offset_bottom = 70.0
+
+[node name="ItemSprite" type="Sprite2D" parent="ScrollContainer/Control/InventoryExpand"]
+position = Vector2(25, 24)
+texture = ExtResource("1_qvtvi")
+
+[node name="ItemCost" type="Label" parent="ScrollContainer/Control/InventoryExpand"]
+layout_mode = 0
+offset_left = 74.0
+offset_top = 47.0
+offset_right = 114.0
+offset_bottom = 73.0
+text = "0
+"
+horizontal_alignment = 1
+
+[node name="ItemName" type="Label" parent="ScrollContainer/Control/InventoryExpand"]
+layout_mode = 0
+offset_left = 43.0
+offset_right = 214.0
+offset_bottom = 26.0
+text = "Expand Inventory Size
+Increases your inventory size by 1"

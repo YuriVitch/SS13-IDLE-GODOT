@@ -1,0 +1,318 @@
+[gd_scene load_steps=14 format=3 uid="uid://p80hr13ga2ia"]
+
+[ext_resource type="Script" path="res://scenes/main.gd" id="1_lsvji"]
+[ext_resource type="Script" path="res://resources/scripts/Inventory.gd" id="1_ugmkf"]
+[ext_resource type="Script" path="res://resources/scripts/Actions.gd" id="2_nc5ye"]
+[ext_resource type="Texture2D" uid="uid://hw3336f5v60x" path="res://resources/Sprites/Misc/coin.png" id="3_8c8vb"]
+[ext_resource type="Texture2D" uid="uid://twdll6p8msb2" path="res://resources/Sprites/Sidebar/NTLogo.png" id="3_i7p7c"]
+[ext_resource type="Texture2D" uid="uid://02fv0028ickl" path="res://resources/Sprites/Sidebar/Cargo.png" id="3_odwv4"]
+[ext_resource type="Texture2D" uid="uid://dyq0fqkhi874y" path="res://resources/Sprites/Sidebar/Inventory.png" id="4_dtkim"]
+[ext_resource type="Texture2D" uid="uid://6e3is4ii4fyc" path="res://resources/Sprites/Jobs/Mining/Mining.png" id="4_ndngx"]
+[ext_resource type="Script" path="res://scenes/TabChanger.gd" id="7_rphch"]
+[ext_resource type="Texture2D" uid="uid://orwhv61u1h7o" path="res://resources/Sprites/cargo/upgrades/Expand Inventory.png" id="8_u2307"]
+[ext_resource type="Texture2D" uid="uid://dmndbq04ybesx" path="res://resources/Sprites/cargo/upgrades/Mining Upgrade.png" id="9_w8ldm"]
+[ext_resource type="Script" path="res://resources/scripts/MiningTab.gd" id="10_2lhdf"]
+[ext_resource type="Script" path="res://resources/scripts/CargoTab.gd" id="10_lcjqf"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_lsvji")
+
+[node name="Background" type="ColorRect" parent="."]
+offset_left = -611.0
+offset_top = -357.0
+offset_right = 591.0
+offset_bottom = 346.0
+color = Color(0.388235, 0.388235, 0.388235, 1)
+
+[node name="SidebarGUI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -575.0
+offset_top = -325.0
+offset_right = -453.0
+offset_bottom = 323.0
+
+[node name="ColorRect" type="ColorRect" parent="SidebarGUI"]
+layout_mode = 0
+offset_left = -7.0
+offset_top = -8.0
+offset_right = 183.0
+offset_bottom = 664.0
+color = Color(0.0980392, 0.0980392, 0.0980392, 1)
+
+[node name="JobsContainer" type="ScrollContainer" parent="SidebarGUI"]
+layout_mode = 0
+offset_top = 46.0
+offset_right = 174.0
+offset_bottom = 649.0
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SidebarGUI/JobsContainer"]
+layout_mode = 2
+
+[node name="Cargo" type="Sprite2D" parent="SidebarGUI/JobsContainer/VBoxContainer"]
+position = Vector2(15, 24)
+texture = ExtResource("3_odwv4")
+
+[node name="CargoButton" type="Button" parent="SidebarGUI/JobsContainer/VBoxContainer/Cargo"]
+offset_left = 25.0
+offset_top = -13.0
+offset_right = 79.0
+offset_bottom = 18.0
+text = "Cargo"
+
+[node name="Coins" type="Label" parent="SidebarGUI/JobsContainer/VBoxContainer/Cargo"]
+offset_left = 101.0
+offset_top = -8.0
+offset_right = 141.0
+offset_bottom = 15.0
+text = "0"
+
+[node name="CoinSprite" type="Sprite2D" parent="SidebarGUI/JobsContainer/VBoxContainer/Cargo"]
+position = Vector2(92, 4)
+texture = ExtResource("3_8c8vb")
+
+[node name="Inventory" type="Sprite2D" parent="SidebarGUI/JobsContainer/VBoxContainer"]
+position = Vector2(15, 55)
+texture = ExtResource("4_dtkim")
+
+[node name="InventoryButton" type="Button" parent="SidebarGUI/JobsContainer/VBoxContainer/Inventory"]
+offset_left = 25.0
+offset_top = -14.0
+offset_right = 108.0
+offset_bottom = 17.0
+text = "Inventory"
+
+[node name="SlotsFilled" type="Label" parent="SidebarGUI/JobsContainer/VBoxContainer/Inventory"]
+offset_left = 110.0
+offset_top = -8.0
+offset_right = 162.0
+offset_bottom = 18.0
+text = "0/0"
+
+[node name="SaveGame" type="Sprite2D" parent="SidebarGUI/JobsContainer/VBoxContainer"]
+position = Vector2(20, 582)
+
+[node name="SaveButton" type="Button" parent="SidebarGUI/JobsContainer/VBoxContainer/SaveGame"]
+offset_left = 13.0
+offset_top = -13.0
+offset_right = 57.0
+offset_bottom = 18.0
+text = "Save"
+
+[node name="LoadGame" type="Sprite2D" parent="SidebarGUI/JobsContainer/VBoxContainer"]
+position = Vector2(20, 582)
+
+[node name="LoadButton" type="Button" parent="SidebarGUI/JobsContainer/VBoxContainer/LoadGame"]
+offset_left = 12.0
+offset_top = -38.0
+offset_right = 58.0
+offset_bottom = -7.0
+text = "Load"
+
+[node name="Mining" type="Sprite2D" parent="SidebarGUI/JobsContainer/VBoxContainer"]
+position = Vector2(15, 113)
+texture = ExtResource("4_ndngx")
+
+[node name="MiningButton" type="Button" parent="SidebarGUI/JobsContainer/VBoxContainer/Mining"]
+offset_left = 25.0
+offset_top = -14.0
+offset_right = 86.0
+offset_bottom = 17.0
+text = "Mining"
+alignment = 0
+
+[node name="MiningLevel" type="Label" parent="SidebarGUI/JobsContainer/VBoxContainer/Mining"]
+offset_left = 90.0
+offset_top = -8.0
+offset_right = 130.0
+offset_bottom = 18.0
+text = "0/50"
+
+[node name="GameLabelBG" type="ColorRect" parent="SidebarGUI"]
+layout_mode = 0
+offset_left = -1.0
+offset_right = 183.0
+offset_bottom = 54.0
+color = Color(0.258824, 0.258824, 0.258824, 1)
+
+[node name="GameLabel" type="Label" parent="SidebarGUI/GameLabelBG"]
+layout_mode = 0
+offset_left = 53.0
+offset_top = 3.0
+offset_right = 208.0
+offset_bottom = 55.0
+text = "SS13 Idle 
+Godot Ver."
+
+[node name="NTLogo" type="Sprite2D" parent="SidebarGUI/GameLabelBG/GameLabel"]
+position = Vector2(-27, 24)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("3_i7p7c")
+
+[node name="Inventory" type="Node2D" parent="."]
+script = ExtResource("1_ugmkf")
+
+[node name="Actions" type="Node2D" parent="."]
+script = ExtResource("2_nc5ye")
+
+[node name="TabChanger" type="Node2D" parent="."]
+script = ExtResource("7_rphch")
+
+[node name="CargoTab" type="Control" parent="TabChanger"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("10_lcjqf")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="TabChanger/CargoTab"]
+custom_minimum_size = Vector2(925, 1000)
+layout_mode = 0
+offset_left = -392.0
+offset_top = -322.0
+offset_right = 533.0
+offset_bottom = 678.0
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 3
+
+[node name="Control" type="Control" parent="TabChanger/CargoTab/ScrollContainer"]
+layout_mode = 2
+
+[node name="InventoryExpand" type="ColorRect" parent="TabChanger/CargoTab/ScrollContainer/Control"]
+custom_minimum_size = Vector2(310, 70)
+layout_mode = 2
+offset_left = 5.0
+offset_right = 315.0
+offset_bottom = 70.0
+color = Color(0.231373, 0.231373, 0.231373, 1)
+
+[node name="InventoryUpPurchase" type="Button" parent="TabChanger/CargoTab/ScrollContainer/Control/InventoryExpand"]
+custom_minimum_size = Vector2(310, 70)
+layout_mode = 0
+offset_right = 310.0
+offset_bottom = 70.0
+
+[node name="ItemSprite" type="Sprite2D" parent="TabChanger/CargoTab/ScrollContainer/Control/InventoryExpand"]
+position = Vector2(25, 24)
+texture = ExtResource("8_u2307")
+
+[node name="InvItemCost" type="Label" parent="TabChanger/CargoTab/ScrollContainer/Control/InventoryExpand"]
+layout_mode = 0
+offset_left = 74.0
+offset_top = 47.0
+offset_right = 114.0
+offset_bottom = 73.0
+text = "1000
+"
+horizontal_alignment = 1
+
+[node name="ItemName" type="Label" parent="TabChanger/CargoTab/ScrollContainer/Control/InventoryExpand"]
+layout_mode = 0
+offset_left = 43.0
+offset_right = 214.0
+offset_bottom = 26.0
+text = "Expand Inventory Size
+Increases your inventory size by 1"
+
+[node name="MiningUpgrade" type="ColorRect" parent="TabChanger/CargoTab/ScrollContainer/Control"]
+custom_minimum_size = Vector2(310, 70)
+layout_mode = 0
+offset_left = 5.0
+offset_top = 106.0
+offset_right = 315.0
+offset_bottom = 176.0
+color = Color(0.231373, 0.231373, 0.231373, 1)
+
+[node name="MiningUpPurchase" type="Button" parent="TabChanger/CargoTab/ScrollContainer/Control/MiningUpgrade"]
+custom_minimum_size = Vector2(310, 70)
+layout_mode = 0
+offset_right = 310.0
+offset_bottom = 70.0
+
+[node name="ItemSprite" type="Sprite2D" parent="TabChanger/CargoTab/ScrollContainer/Control/MiningUpgrade"]
+position = Vector2(25, 24)
+texture = ExtResource("9_w8ldm")
+
+[node name="MiningItemCost" type="Label" parent="TabChanger/CargoTab/ScrollContainer/Control/MiningUpgrade"]
+layout_mode = 0
+offset_left = 74.0
+offset_top = 47.0
+offset_right = 114.0
+offset_bottom = 73.0
+text = "1000
+"
+horizontal_alignment = 1
+
+[node name="ItemName" type="Label" parent="TabChanger/CargoTab/ScrollContainer/Control/MiningUpgrade"]
+layout_mode = 0
+offset_left = 43.0
+offset_right = 214.0
+offset_bottom = 26.0
+text = "Upgrade Mining Tools
+Increases mining speed by 15%"
+
+[node name="MiningTab" type="Control" parent="TabChanger"]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("10_2lhdf")
+
+[node name="MiningLevel" type="ProgressBar" parent="TabChanger/MiningTab"]
+layout_mode = 0
+offset_left = -389.0
+offset_top = -319.0
+offset_right = 572.0
+offset_bottom = -292.0
+show_percentage = false
+
+[node name="MiningXP" type="Label" parent="TabChanger/MiningTab/MiningLevel"]
+layout_mode = 0
+offset_left = 369.0
+offset_top = 1.0
+offset_right = 409.0
+offset_bottom = 24.0
+text = "0/0"
+
+[node name="MiningTimer" type="Timer" parent="TabChanger/MiningTab"]
+
+[node name="ScrollContainer" type="ScrollContainer" parent="TabChanger/MiningTab"]
+custom_minimum_size = Vector2(925, 1000)
+layout_mode = 0
+offset_left = -392.0
+offset_top = -322.0
+offset_right = 533.0
+offset_bottom = 678.0
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 3
+
+[node name="Control" type="Control" parent="TabChanger/MiningTab/ScrollContainer"]
+layout_mode = 2
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[connection signal="inventory_update" from="." to="Inventory" method="_on_main_inventory_update"]
+[connection signal="upgrade" from="." to="Inventory" method="_on_main_upgrade"]
+[connection signal="upgrade" from="." to="TabChanger/CargoTab" method="_on_main_upgrade"]
+[connection signal="upgrade" from="." to="TabChanger/MiningTab" method="_on_cargo_tab_cargo_upgrade"]
+[connection signal="pressed" from="SidebarGUI/JobsContainer/VBoxContainer/Cargo/CargoButton" to="." method="_on_cargo_button_pressed"]
+[connection signal="pressed" from="SidebarGUI/JobsContainer/VBoxContainer/Inventory/InventoryButton" to="." method="_on_inventory_button_pressed"]
+[connection signal="pressed" from="SidebarGUI/JobsContainer/VBoxContainer/SaveGame/SaveButton" to="." method="_on_save_button_pressed"]
+[connection signal="pressed" from="SidebarGUI/JobsContainer/VBoxContainer/LoadGame/LoadButton" to="." method="_on_save_button_pressed"]
+[connection signal="pressed" from="SidebarGUI/JobsContainer/VBoxContainer/LoadGame/LoadButton" to="." method="_on_load_button_pressed"]
+[connection signal="pressed" from="SidebarGUI/JobsContainer/VBoxContainer/Mining/MiningButton" to="." method="_on_mining_button_pressed"]
+[connection signal="inventory_update" from="Inventory" to="." method="_on_inventory_inventory_update"]
+[connection signal="inventory_update" from="Inventory" to="TabChanger/CargoTab" method="_on_inventory_inventory_update"]
+[connection signal="cargo_upgrade" from="TabChanger/CargoTab" to="." method="_on_cargo_tab_cargo_upgrade"]
+[connection signal="cargo_upgrade" from="TabChanger/CargoTab" to="TabChanger/MiningTab" method="_on_cargo_tab_cargo_upgrade"]
+[connection signal="inventory_update" from="TabChanger/CargoTab" to="Inventory" method="_on_cargo_tab_inventory_update"]
+[connection signal="pressed" from="TabChanger/CargoTab/ScrollContainer/Control/InventoryExpand/InventoryUpPurchase" to="TabChanger/CargoTab" method="_on_inventory_up_purchase_pressed"]
+[connection signal="pressed" from="TabChanger/CargoTab/ScrollContainer/Control/MiningUpgrade/MiningUpPurchase" to="TabChanger/CargoTab" method="_on_mining_up_purchase_pressed"]
+[connection signal="miningLevelUp" from="TabChanger/MiningTab" to="." method="_on_mining_tab_mining_level_up"]
+[connection signal="timeout" from="TabChanger/MiningTab/MiningTimer" to="TabChanger/MiningTab" method="_on_mining_timer_timeout"]

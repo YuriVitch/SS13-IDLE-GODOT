@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://p80hr13ga2ia"]
+
+[ext_resource type="Script" path="res://resources/scripts/Inventory.gd" id="1_ugmkf"]
+[ext_resource type="Script" path="res://resources/scripts/Actions.gd" id="2_nc5ye"]
+
+[node name="Main" type="Node2D"]
+
+[node name="Inventory" type="Node2D" parent="."]
+script = ExtResource("1_ugmkf")
+
+[node name="Timer" type="Timer" parent="Inventory"]
+wait_time = 3.0
+
+[node name="Actions" type="Node2D" parent="."]
+script = ExtResource("2_nc5ye")
+
+[connection signal="timeout" from="Inventory/Timer" to="Inventory" method="_on_timer_timeout"]

@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://p80hr13ga2ia"]
+
+[ext_resource type="Script" path="res://resources/scripts/Inventory.gd" id="1_ugmkf"]
+[ext_resource type="Script" path="res://resources/scripts/Actions.gd" id="2_nc5ye"]
+
+[node name="Main" type="Node2D"]
+
+[node name="Inventory" type="Node2D" parent="."]
+script = ExtResource("1_ugmkf")
+
+[node name="Timer" type="Timer" parent="Inventory"]
+wait_time = 10.0
+autostart = true
+
+[node name="ProgressBar" type="ProgressBar" parent="Inventory"]
+offset_left = 17.0
+offset_top = 77.0
+offset_right = 250.0
+offset_bottom = 104.0
+max_value = 1.0
+fill_mode = 1
+
+[node name="Actions" type="Node2D" parent="."]
+script = ExtResource("2_nc5ye")
